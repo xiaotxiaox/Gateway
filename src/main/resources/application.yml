@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: zuul
+
+server:
+  port: 3001
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8082/eureka
+
+zuul:
+  retryable: true
+  sensitive-headers: false
+  routes:
+    #serviceId(从eureka server上拷贝过来的):path
+    #用户的请求中如果有/category/v1/，网关就认为用户请求的商品分类服务
+    #网关会问eureka server,CATEGORYSERVICE服务的地址是什么？
+    #eureka server返回商品分类服务的ip地址，网关再去访问商品分类服务
+    SDUWH: /sduwh/v1/**
